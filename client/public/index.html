@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emojigame</title>
+    <script type="text/javascript" src="dist.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div id="myapp">Connecting...</div>
+</body>
+
+<script type="text/javascript">
+
+    // Start the Elm application.
+    var app = Elm.Emojigame.init({
+        node: document.getElementById('myapp'),
+        flags: localStorage.getItem('credentials'),
+    });
+
+    var socket;
+
+    // make sure we only subscribe once to this
+    app.ports.sendMessage.subscribe(function (message) {
+        socket.send(message);
+    });
+
+    app.ports.credentialsSaver.subscribe(function(args) {
+        window.localStorage.setItem('credentials', args);
+    });
+
+    function connectWs() {
+        socket = new WebSocket('ws://' + window.location.host);
+
+        socket.addEventListener('open', function () {
+
+            console.log('ws connected');
+
+            socket.addEventListener("message", function (event) {
+                app.ports.messageReceiver.send(event.data);
+            });
+
+
+            socket.addEventListener("close", function (event) {
+                console.log('ws closed');
+                app.ports.wsDisconnectReceiver.send(null);
+            });
+
+            app.ports.wsConnectReceiver.send(null);
+
+        });
+    }
+
+    window.addEventListener("focus", function() {
+        console.log('focus');
+        if (!socket || socket.readyState === socket.CLOSED) {
+            console.log('try reconnect');
+            connectWs();
+        }
+    });
+
+    connectWs();
+</script>
+
+</html>

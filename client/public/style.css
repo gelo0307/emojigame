@@ -1,0 +1,187 @@
+html {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+body {
+  display: flex;
+  align-items: stretch;
+  min-height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 20px;
+  font-weight: lighter;
+  background-color: darkslategray;
+}
+#container {
+  margin: 40px;
+  border: 1px solid gray;
+  flex: 1 1 auto;
+  background-color: white;
+}
+#lobby {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+#room {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+}
+#room #left-col {
+  flex: 0 0 25%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  border-right: 1px solid gray;
+}
+#room #left-col #info-display {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+#room #left-col #info-display button {
+  font-size: 16px;
+  padding: 5px 10px;
+  margin: -3px 10px;
+}
+#room #left-col #player-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#room #left-col #player-list ul li {
+  border-bottom: 1px solid gray;
+  padding: 20px;
+  display: flex;
+  justify-content: stretch;
+  align-content: stretch;
+}
+#room #left-col #player-list ul li.player-self {
+  background-color: #c3d2de;
+}
+#room #left-col #player-list ul li #player-icon1,
+#room #left-col #player-list ul li #player-icon2 {
+  flex: 0 0 auto;
+  font-size: 32px;
+  width: 32px;
+}
+#room #left-col #player-list ul li #player-points {
+  flex: 0 0 auto;
+  padding: 8px;
+  text-align: right;
+}
+#room #left-col #player-list ul li #player-name {
+  flex: 1 1 auto;
+  padding: 8px 14px;
+}
+#room #left-col #player-list ul li #player-name.inactive {
+  text-decoration: line-through;
+  color: gray;
+}
+#room #main-window {
+  flex: 1 1 auto;
+  text-align: center;
+  padding-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#room #main-window > * {
+  width: 100%;
+  padding: 20px;
+  margin: 20px;
+}
+#room #main-window #phrase {
+  margin-bottom: 30px;
+}
+#room #main-window #submission-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#room #main-window #submission-list ul li {
+  font-size: 48px;
+  margin: 30px auto;
+  width: auto;
+}
+#room #main-window #submission-list button {
+  font-size: 32px;
+}
+#room #main-window #voting-buttons li {
+  cursor: pointer;
+}
+#room #main-window #voting-buttons li,
+#room #main-window #voting-buttons #vote-nope {
+  transition: transform 0.2s ease-out;
+}
+#room #main-window #voting-buttons li:hover,
+#room #main-window #voting-buttons #vote-nope:hover {
+  transform: scale(1.2);
+}
+#room #main-window #voting-buttons #vote-help {
+  margin-top: 40px;
+}
+#room #main-window #submission-form {
+  width: 100%;
+}
+#room #main-window #submission-form input {
+  width: 70%;
+}
+#room #emoji-picker {
+  flex: 0 0 315px;
+  height: 100%;
+  border-left: 1px solid gray;
+}
+input {
+  border: 1px solid gray;
+  padding: 10px;
+  font-size: 20px;
+  margin: 2px;
+}
+button {
+  background-color: #c3d2de;
+  padding: 10px;
+  font-size: 20px;
+  margin: 2px;
+  cursor: pointer;
+}
+@media only screen and (max-width: 1000px) {
+  #container {
+    margin: 10px;
+  }
+  #room {
+    flex-direction: column;
+    min-height: 100%;
+  }
+  #room > div {
+    border: 0 0 1px solid gray;
+  }
+  #room #left-col {
+    flex: 0 0 auto;
+    border-right: none;
+  }
+  #room #main-window {
+    flex: 1 0 auto;
+  }
+  #room #emoji-picker {
+    flex: 0 0 0;
+    transition: flex 0.3s ease-out;
+    overflow: hidden;
+    border-left: none;
+  }
+  #room #left-col {
+    transition: flex 0.3s ease-out;
+  }
+  #room.write-mode #player-list {
+    flex: 0 0 0;
+    overflow: hidden;
+  }
+  #room.write-mode #emoji-picker {
+    flex: 1 1 300px;
+  }
+}
